@@ -1,0 +1,11 @@
+.box {
+  width: 200px;
+  height: 30px;
+  background-color: ghostwhite;
+  line-height: 30px;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
+}

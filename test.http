@@ -1,0 +1,31 @@
+GET http://127.0.0.1:3000/task?id=2 HTTP/1.0
+Content-Type: "application/json"
+
+### 
+POST http://127.0.0.1:3000/task HTTP/1.0
+Content-Type: application/json
+
+{  
+  "id": "1",
+  "name": "ct2",
+  "description": "zzp 801辉煌",
+  "status": "ok"
+}
+###
+GET http://127.0.0.1:3000/task/2 HTTP/1.0
+Content-Type: "application/json"
+
+###
+DELETE  http://127.0.0.1:3000/task/1 HTTP/1.0
+Content-Type: "application/json"
+
+###
+PATCH http://127.0.0.1:3000/task/update/1 HTTP/1.0
+Content-Type: application/json
+
+{  
+  "id": "100",
+  "name": "小波波",
+  "description": "小波波吃了吗",
+  "status": "ok"
+}

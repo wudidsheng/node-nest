@@ -9,8 +9,11 @@ import {
   Post,
   Patch,
   Query,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { User } from 'src/decator/custom.decorator';
 
 @Controller('task')
 export class TaskController {
@@ -18,7 +21,10 @@ export class TaskController {
     Logger.log('task.controller.ts init ok');
   }
   @Get('/:id')
-  getTask(@Param('id') id: string): CreateTaskDto {
+  getTask(@Param('id') id: string, @User('id') userID: string): CreateTaskDto {
+    if (`${id}` === `2`) {
+      throw new HttpException('parma is empty', HttpStatus.NOT_FOUND);
+    }
     return this.taskServer.getTaskByID(id);
   }
   @Get()

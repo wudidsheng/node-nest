@@ -5,8 +5,9 @@ import { TaskInterceptor } from './interceptor/task.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // 全局管道
+  // 全局验证管道
   app.useGlobalPipes(new ValidationPipe());
+  // 全局拦截器
   app.useGlobalInterceptors(new TaskInterceptor());
   Logger.log('server run in:http://127.0.0.1:3000/');
 

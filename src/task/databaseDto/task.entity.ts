@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, Repository } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskStatus } from '../dto/create-task.dto';
 /**
  *

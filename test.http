@@ -29,3 +29,17 @@ Content-Type: application/json
   "description": "落水无情，人有意",
   "status": "1"
 }
+
+### 注册
+POST  http://127.0.0.1:3000/auth/register HTTP/1.0
+Content-Type: application/json
+
+{
+  "username":"ct",
+  "password":"12345678Ab@"
+}
+
+### 
+### 注册
+GET   http://127.0.0.1:3000/auth HTTP/1.0
+Content-Type: application/json

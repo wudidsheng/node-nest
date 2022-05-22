@@ -10,12 +10,9 @@ import {
   Post,
   Patch,
   Query,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { User } from 'src/decator/custom.decorator';
-import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult } from 'typeorm';
 
 @Controller('task')
 export class TaskController {
@@ -23,25 +20,19 @@ export class TaskController {
     Logger.log('task.controller.ts init ok');
   }
   @Get('/:id')
-  getTask(@Param('id') id: string, @User('id') userID: string): CreateTaskDto {
-    if (`${id}` === `2`) {
-      throw new HttpException('parma is empty', HttpStatus.NOT_FOUND);
-    }
+  getTask(@Param('id') id: string): Promise<Task> {
     return this.taskServer.getTaskByID(id);
   }
   @Get()
   getTasks(@Query() query: { [x: string]: any }): Promise<Task[]> {
-    if (Object.keys(query).length) {
-      return this.taskServer.getTaskByQuery(query) as any;
-    }
-    return this.taskServer.getTask();
+    return this.taskServer.getTask(query);
   }
   @Post()
   create(@Body() createTask: CreateTaskDto) {
     return this.taskServer.createTask(createTask);
   }
   @Delete('/:id')
-  deleteTask(@Param('id') id: string) {
+  deleteTask(@Param('id') id: string): Promise<DeleteResult> {
     return this.taskServer.deleteTask(id);
   }
   @Patch('update/:id')

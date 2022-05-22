@@ -1,35 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Task } from './databaseDto/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
-  private tasks: CreateTaskDto[];
   constructor(
     @InjectRepository(Task)
     private taskDto: Repository<Task>,
-  ) {
-    this.tasks = [];
+  ) {}
+  async deleteTask(id: string): Promise<DeleteResult> {
+    return this.taskDto.delete(id);
   }
-  deleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
-    return 'delete ok';
+  getTaskByID(id: string): Promise<Task> {
+    return this.taskDto.findOne({ where: { id: id } });
   }
-  getTaskByID(id: string): CreateTaskDto {
-    const result = this.tasks.find((task) => task.id === id);
-    if (!result) {
-      throw new NotFoundException(`task with id ${id} not found`);
-    }
-    return result;
-  }
-  async getTask(): Promise<Task[]> {
-    return this.taskDto.find();
-  }
-  getTaskByQuery(query: { [x: string]: any }): CreateTaskDto[] {
-    console.log(query, '==');
-    return this.tasks.sort();
+  async getTask(query?: Partial<CreateTaskDto>): Promise<Task[]> {
+    return this.taskDto.find({ where: query });
   }
 
   async createTask(body: CreateTaskDto): Promise<Task> {
@@ -41,9 +29,7 @@ export class TaskService {
     });
     return await this.taskDto.save(task);
   }
-  updateTask(id: string, body: Partial<CreateTaskDto>) {
-    const index = this.tasks.findIndex((task) => task.id === id);
-    this.tasks[index] = { ...this.tasks[index], ...body };
-    return body;
+  async updateTask(id: string, body: Partial<Task>): Promise<UpdateResult> {
+    return this.taskDto.update(id, body);
   }
 }

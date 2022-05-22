@@ -1,3 +1,4 @@
+import { Task } from './databaseDto/task.entity';
 import { TaskService } from './task.service';
 import {
   Body,
@@ -14,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { User } from 'src/decator/custom.decorator';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Controller('task')
 export class TaskController {
@@ -28,9 +30,9 @@ export class TaskController {
     return this.taskServer.getTaskByID(id);
   }
   @Get()
-  getTasks(@Query() query: { [x: string]: any }): CreateTaskDto[] {
+  getTasks(@Query() query: { [x: string]: any }): Promise<Task[]> {
     if (Object.keys(query).length) {
-      return this.taskServer.getTaskByQuery(query);
+      return this.taskServer.getTaskByQuery(query) as any;
     }
     return this.taskServer.getTask();
   }

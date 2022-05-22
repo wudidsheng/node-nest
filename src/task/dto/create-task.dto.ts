@@ -3,7 +3,12 @@ export class CreateTaskDto {
   @IsNotEmpty()
   id: string;
   @IsNotEmpty()
-  name: string;
+  title: string;
   description: string;
-  status: 'doing' | 'done';
+  status: TaskStatus;
+}
+
+export enum TaskStatus {
+  Doing = 1,
+  Done = 2,
 }

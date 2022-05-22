@@ -1,4 +1,4 @@
-GET http://127.0.0.1:3000/task?id=2 HTTP/1.0
+GET http://127.0.0.1:3000/task HTTP/1.0
 Content-Type: "application/json"
 
 ### 
@@ -7,9 +7,10 @@ Content-Type: application/json
 
 {  
   "id": "1",
-  "name": "ct2",
+  "name":"1231",
+  "title": "测试一下",
   "description": "zzp 801辉煌",
-  "status": "ok"
+  "status": "1"
 }
 ###
 GET http://127.0.0.1:3000/task/2 HTTP/1.0

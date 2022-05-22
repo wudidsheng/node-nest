@@ -1,4 +1,4 @@
-GET http://127.0.0.1:3000/task?id=5 HTTP/1.0
+GET http://127.0.0.1:3000/task/all?title=ZZP HTTP/1.0
 Content-Type: "application/json"
 
 ### 
@@ -16,7 +16,7 @@ Content-Type: "application/json"
 authorization:"Basic base64-user-password"
 
 ###
-DELETE  http://127.0.0.1:3000/task/3 HTTP/1.0
+DELETE  http://127.0.0.1:3000/task/5 HTTP/1.0
 Content-Type: "application/json"
 
 ###

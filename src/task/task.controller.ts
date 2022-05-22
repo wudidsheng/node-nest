@@ -12,12 +12,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { DeleteResult } from 'typeorm';
 
 @Controller('task')
 export class TaskController {
   constructor(private taskServer: TaskService) {
     Logger.log('task.controller.ts init ok');
+  }
+  @Get('/all')
+  getAllTasks(@Query() filterDto: Partial<CreateTaskDto>): Promise<Task[]> {
+    return this.taskServer.getTasks(filterDto);
   }
   @Get('/:id')
   getTask(@Param('id') id: string): Promise<Task> {
@@ -32,7 +35,7 @@ export class TaskController {
     return this.taskServer.createTask(createTask);
   }
   @Delete('/:id')
-  deleteTask(@Param('id') id: string): Promise<DeleteResult> {
+  deleteTask(@Param('id') id: string): Promise<string> {
     return this.taskServer.deleteTask(id);
   }
   @Patch('update/:id')

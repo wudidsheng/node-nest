@@ -12,7 +12,7 @@ import { Request } from 'express';
 export class TaskInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const ctx = context.switchToHttp().getRequest<Request>();
-    console.log(ctx.headers.authorization);
+    console.log(ctx.headers.Authorization);
     const now = Date.now();
     return next
       .handle()

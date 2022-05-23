@@ -10,12 +10,16 @@ import { Repository } from 'typeorm';
 import { userDto } from './user.dto';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userDto: Repository<User>,
+    private jwtServer: JwtService,
   ) {}
+
   async findAll(): Promise<userDto[]> {
     return this.userDto.find();
   }
@@ -37,7 +41,7 @@ export class AuthService {
     }
   }
   // 登录
-  async login(user: userDto): Promise<string> {
+  async login(user: userDto): Promise<{ token: string }> {
     const { username, password } = user;
     const userInfo = await this.userDto.findOne({ where: { username } });
     // 用户不存在
@@ -47,6 +51,6 @@ export class AuthService {
     if (!(await bcrypt.compare(password, userInfo.password))) {
       throw new UnauthorizedException('用户密码错误');
     }
-    return 'ok';
+    return { token: this.jwtServer.sign(user) };
   }
 }

@@ -13,4 +13,8 @@ export class AuthController {
   register(@Body() body: userDto): Promise<userDto> {
     return this.authServer.register(body);
   }
+  @Post('login')
+  login(@Body() body: userDto): Promise<string> {
+    return this.authServer.login(body);
+  }
 }

@@ -35,7 +35,7 @@ POST  http://127.0.0.1:3000/auth/register HTTP/1.0
 Content-Type: application/json
 
 {
-  "username":"ct",
+  "username":"ct2",
   "password":"12345678Ab@"
 }
 
@@ -43,3 +43,11 @@ Content-Type: application/json
 ### 注册
 GET   http://127.0.0.1:3000/auth HTTP/1.0
 Content-Type: application/json
+### 注册
+POST http://127.0.0.1:3000/auth/login HTTP/1.0
+Content-Type: application/json
+
+{
+   "username":"ct2",
+  "password":"12345678Ab@1"
+}

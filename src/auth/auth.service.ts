@@ -5,6 +5,7 @@ import {
   ConflictException,
   NotFoundException,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,6 +16,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  private log = new Logger('authService');
   constructor(
     @InjectRepository(User)
     private userDto: Repository<User>,
@@ -33,6 +35,8 @@ export class AuthService {
     try {
       return await this.userDto.save(userInfo);
     } catch (error) {
+      // trace 错误的上下文
+      this.log.error('请求出错', error.trace);
       // 重复的用户名
       if (error.code === '23505') {
         throw new ConflictException('新建用户失败');

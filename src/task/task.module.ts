@@ -1,3 +1,4 @@
+import { AuthModule } from './../auth/auth.module';
 import { Task } from './databaseDto/task.entity';
 import { Module } from '@nestjs/common';
 import { TaskController } from './task.controller';
@@ -6,7 +7,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task])],
+  imports: [TypeOrmModule.forFeature([Task]), AuthModule],
   controllers: [TaskController],
   // can be injected into constructors if decorated as an @Injectable
   // can be a plain value,a class  ,async/async factory etc

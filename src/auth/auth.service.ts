@@ -1,3 +1,4 @@
+import { use } from 'passport';
 import {
   Injectable,
   InternalServerErrorException,
@@ -51,6 +52,6 @@ export class AuthService {
     if (!(await bcrypt.compare(password, userInfo.password))) {
       throw new UnauthorizedException('用户密码错误');
     }
-    return { token: this.jwtServer.sign(user) };
+    return { token: this.jwtServer.sign({ id: userInfo.id }) };
   }
 }

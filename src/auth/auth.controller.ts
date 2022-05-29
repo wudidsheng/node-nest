@@ -11,7 +11,6 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt')) //应用jwt策略
   @Get()
   getAllUser(@User('id') userId: string) {
-    console.log(userId);
     return this.authServer.findAll();
   }
   @Post('register')

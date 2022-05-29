@@ -1,5 +1,6 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User as UserTypes } from 'src/auth/user.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Task } from './databaseDto/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -7,6 +8,8 @@ import { CreateTaskDto } from './dto/create-task.dto';
 @Injectable()
 export class TaskService {
   constructor(
+    @InjectRepository(UserTypes)
+    private userDto: Repository<UserTypes>,
     @InjectRepository(Task)
     private taskDto: Repository<Task>,
   ) {}
@@ -30,19 +33,21 @@ export class TaskService {
     }
     return query.getMany();
   }
-  getTaskByID(id: string): Promise<Task> {
-    return this.taskDto.findOne({ where: { id: id } });
+  async getTaskByID(id: string, user: UserTypes): Promise<Task> {
+    return await this.taskDto.findOne({ where: { id: id, user } });
   }
-  async getTask(query?: Partial<CreateTaskDto>): Promise<Task[]> {
-    return this.taskDto.find({ where: query });
+  async getTask(user: UserTypes): Promise<Task[]> {
+    return this.taskDto.find({ where: { user } });
   }
 
-  async createTask(body: CreateTaskDto): Promise<Task> {
+  async createTask(body: CreateTaskDto, userId: string): Promise<Task> {
     const { title, description, status } = body;
+    const userInfo = await this.userDto.findOne({ where: { id: userId } });
     const task = this.taskDto.create({
       title,
       description,
       status,
+      user: userInfo,
     });
     return await this.taskDto.save(task);
   }

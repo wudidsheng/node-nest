@@ -2,7 +2,6 @@ import { userDto } from './user.dto';
 import { Body, Controller, Get, Post, UseGuards, Logger } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/decator/custom.decorator';
 
 @Controller('auth')
 export class AuthController {

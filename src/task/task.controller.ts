@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { Task } from './databaseDto/task.entity';
 import { TaskService } from './task.service';
 import {
@@ -19,7 +20,12 @@ import { User as UserTypes } from '../auth/user.entity';
 @UseGuards(AuthGuard('jwt'))
 @Controller('task')
 export class TaskController {
-  constructor(private taskServer: TaskService) {
+  constructor(
+    private taskServer: TaskService,
+    private ConfigService: ConfigService,
+  ) {
+    // 局部使用环境配置
+    console.log(this.ConfigService.get('host'));
     Logger.log('task.controller.ts init ok');
   }
   @Get('/all')

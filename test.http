@@ -1,9 +1,9 @@
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlNWQ1Y2E4LWFkNzQtNDJkYy04Y2I5LWMxMDU4ODIxOTc4OSIsImlhdCI6MTY1MzgzOTgyNiwiZXhwIjoxNjUzODQzNDI2fQ.960FlcYYst36AXdYBTSZDUVihIgHp0fJdXNA1bNbZR8
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ1OWY3YjQyLWFlN2EtNGRmMy05YzJhLWM1ZWQ2NDc4YzhiNyIsImlhdCI6MTY1NDQ5OTYxMCwiZXhwIjoxNjU0NTAzMjEwfQ.h1FjVzbtfBUpEmVcJ96p1oIckS562UlkxJTgA2HdBMc
 GET http://127.0.0.1:3000/task/all HTTP/1.0
 Content-Type: "application/json"
 Authorization:{{token}}
 ###
-GET http://127.0.0.1:3000/task/10 HTTP/1.0
+GET http://127.0.0.1:3000/task/1 HTTP/1.0
 Content-Type: "application/json"
 Authorization:{{token}}
 ### 
@@ -56,6 +56,6 @@ POST http://127.0.0.1:3000/auth/login HTTP/1.0
 Content-Type: application/json
 
 {
-  "username":"ct2",
+  "username":"1234",
   "password":"12345678Ab@"
 }

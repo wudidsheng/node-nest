@@ -5,6 +5,7 @@ import { TaskInterceptor } from './interceptor/task.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   // 全局验证管道
   app.useGlobalPipes(new ValidationPipe());
   // 全局拦截器

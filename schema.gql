@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type student {
+  _id: String
+  id: ID!
+  name: String
+}
+
+type Lesson {
+  _id: String
+  id: ID!
+  name: String
+  startTime: String!
+  endTime: String!
+  students: [student!]!
+}
+
+type Query {
+  lesson: [Lesson!]!
+  findLesson(id: String!): Lesson!
+  findAllStudent: [student!]!
+  findStudentById(id: String!): student!
+}
+
+type Mutation {
+  createLesson(createInput: LessonInput!): Lesson!
+  assigssn(id: String!, students: [String!]!): Lesson!
+  createStudent(student: studentInput!): student!
+}
+
+input LessonInput {
+  name: String!
+  startTime: String!
+  endTime: String!
+}
+
+input studentInput {
+  name: String!
+}

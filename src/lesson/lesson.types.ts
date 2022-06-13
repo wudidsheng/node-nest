@@ -18,5 +18,5 @@ export class LessonType {
   endTime: string;
 
   @Field((type) => [StudentTypes], { defaultValue: [] })
-  students: string[];
+  students?: string[];
 }

@@ -1,3 +1,4 @@
+import { StudentService } from './../student/student.service';
 import { Lesson } from './entity/lesson.entity';
 import { LessonService } from './lesson.service';
 import {
@@ -13,7 +14,10 @@ import { LessonInput } from './lesson.input';
 
 @Resolver((of) => LessonType)
 export class LessonReslover {
-  constructor(private lessonServe: LessonService) {}
+  constructor(
+    private lessonServe: LessonService,
+    private studentServe: StudentService,
+  ) {}
   @Query((returns) => [LessonType])
   async lesson() {
     const result = await this.lessonServe.findAll();
@@ -39,8 +43,10 @@ export class LessonReslover {
   }
 
   @ResolveField()
-  async Student(@Parent() lesson: Lesson) {
-    // TODO:获取学生信息
-    return;
+  async students(@Parent() lesson: Lesson) {
+    const result = await this.studentServe.findManyStudents(
+      lesson.students || [],
+    );
+    return result;
   }
 }
